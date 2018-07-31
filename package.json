@@ -1,0 +1,17 @@
+{
+  "name": "plunchserver",
+  "version": "1.0.0",
+  "description": "simple express server for CRUD",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "codeconcept",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
