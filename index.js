@@ -42,6 +42,20 @@ let places = [{
   }
 ];
 
+let users = [{
+  id: '1',
+  pseudo: 'Bob',
+  email: 'b@t.fr',
+  password: 'aze'
+},{
+  id: '2',
+  pseudo: 'Sam',
+  email: 's@t.fr',
+  password: 'qsd'
+}];
+
+let loggedInUsers = [];
+
 app.get("/api/v1/places", (req, res) => {
   res.send(places);
 });
@@ -60,6 +74,26 @@ app.post("/api/v1/places", (req, res) => {
     places = [...places, newPlace];
 
     res.send(newPlace).status(201);
+  }
+});
+
+app.post("/api/v1/signin", (req, res) => {
+  console.log(req.body);
+  if (!req.body) {
+    return res.sendStatus(500);
+  } else {
+    const retrievedUser = req.body;
+    const result = users.find(user => user.email === retrievedUser.email);
+    if(result.length === 0) {
+      loggedInUsers = [...loggedInUsers, retrievedUser];
+      return res.send({error: 'accès interdit', statusCode: 401}).status(401);
+    } else {
+      delete result.password;
+      result.connectedAt = new Date().toISOString();
+      loggedInUsers = [...loggedInUsers, result];
+      console.log('loggedInUsers ', loggedInUsers);
+      return res.send(result).status(200);
+    };
   }
 });
 
