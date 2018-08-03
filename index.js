@@ -56,6 +56,8 @@ let users = [{
 
 let loggedInUsers = [];
 
+let userChoices = [];
+
 app.get("/api/v1/places", (req, res) => {
   res.send(places);
 });
@@ -94,6 +96,20 @@ app.post("/api/v1/signin", (req, res) => {
       console.log('loggedInUsers ', loggedInUsers);
       return res.send(result).status(200);
     };
+  }
+});
+
+app.post("/api/v1/users-choices", (req, res) => {
+  if (!req.body) {
+    return res.sendStatus(500);
+  } else {
+    const newUserChoice = req.body;
+    newUserChoice.date = new Date().toISOString();
+    // remove previous choice from same user
+    userChoices = userChoices.filter(userChoice => userChoice.userId !== newUserChoice.userId);
+    userChoices = [...userChoices, newUserChoice];
+    console.log('userChoices', userChoices);
+    res.send(userChoices).status(201);
   }
 });
 
