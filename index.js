@@ -43,12 +43,12 @@ let places = [{
 ];
 
 let users = [{
-  id: '1',
+  id: 1,
   pseudo: 'Bob',
   email: 'b@t.fr',
   password: 'aze'
 },{
-  id: '2',
+  id: 2,
   pseudo: 'Sam',
   email: 's@t.fr',
   password: 'qsd'
